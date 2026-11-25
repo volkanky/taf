@@ -102,6 +102,7 @@
         body.taf-register-ready .taf-register-heading p{margin:12px 0 0;color:var(--tr-muted);font-size:14px;line-height:1.55}
         body.taf-register-ready #customer_register_form{padding:0!important;margin:0}
         body.taf-register-ready #customer_register_form>.row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px 16px;margin:0}
+        body.taf-register-ready #customer_register_form>.row:before,body.taf-register-ready #customer_register_form>.row:after{display:none!important;content:none!important}
         body.taf-register-ready #customer_register_form>.row>.col-md-6,body.taf-register-ready #customer_register_form>.row>.col-md-12{float:none;width:auto;padding:0;min-width:0}
         body.taf-register-ready #customer_register_form>.row>.col-md-12,body.taf-register-ready #customer_register_form>.row>small{grid-column:1/-1}
         body.taf-register-ready #customer_register_form>.row>small{margin-top:-4px;color:#8d9494;font-size:11px}
@@ -120,8 +121,8 @@
         body.taf-register-ready #customer_register_form .taf-password-group .form-control{padding-right:78px}
         body.taf-register-ready #customer_register_form .taf-password-toggle{position:absolute;right:8px;bottom:8px;z-index:2;min-height:32px;border:0;border-radius:7px;background:transparent;padding:4px 8px;color:#6b7475;font-size:12px;font-weight:600;cursor:pointer}
         body.taf-register-ready #customer_register_form .taf-password-toggle:hover{background:#fff1f2;color:var(--tr-red)}
-        body.taf-register-ready #customer_register_form .form-check.checkbox{display:flex!important;align-items:flex-start;gap:10px;min-height:0;margin:0!important;padding:12px 14px!important;border:1px solid #eee3e4;border-radius:10px;background:#fbf9f9}
-        body.taf-register-ready #customer_register_form .form-check.checkbox input[type=checkbox]{position:static!important;flex:none;width:16px;height:16px;margin:2px 0 0!important;accent-color:var(--tr-red)}
+        body.taf-register-ready #customer_register_form .form-check.checkbox{display:flex!important;align-items:center!important;gap:10px;min-height:0;margin:0!important;padding:12px 14px!important;border:1px solid #eee3e4;border-radius:10px;background:#fbf9f9}
+        body.taf-register-ready #customer_register_form .form-check.checkbox input[type=checkbox]{position:static!important;align-self:center!important;flex:none;width:16px;height:16px;margin:0!important;accent-color:var(--tr-red)}
         body.taf-register-ready #customer_register_form .form-check.checkbox label{display:block;margin:0!important;padding:0;color:#566061;font-size:12px;font-weight:400;line-height:1.45;cursor:pointer}
         body.taf-register-ready #customer_register_form .form-check.checkbox a{color:var(--tr-red);font-weight:600;text-decoration:underline}
         body.taf-register-ready #customer_register_form .p_captcha{display:grid;grid-template-columns:1fr auto;align-items:center;gap:11px 15px;margin-top:1px;padding:15px 16px;border:1px solid #eadfe0;border-radius:11px;background:#fffafa}
@@ -129,8 +130,9 @@
         body.taf-register-ready #customer_register_form .toosmallinfo{grid-column:1/-1;color:#697173;font-size:12px;line-height:1.4}
         body.taf-register-ready #customer_register_form .captcha_image{display:block;min-width:0}
         body.taf-register-ready #customer_register_form .captcha_image img{float:none!important;display:block;max-width:100%;height:auto}
-        body.taf-register-ready #customer_register_form .captcha_input{display:block}
-        body.taf-register-ready #customer_register_form input[name=captcha0]{width:78px!important;min-width:78px!important;height:42px;margin:0!important;border:1px solid #dedfdf!important;border-radius:9px;background:#fff;color:var(--tr-ink);font-size:18px;text-align:center;letter-spacing:.15em;outline:none}
+        body.taf-register-ready #customer_register_form .captcha_input{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
+        body.taf-register-ready #customer_register_form .taf-captcha-label{display:block;color:#374142;font-size:12px;font-weight:600;line-height:1.25;white-space:nowrap}
+        body.taf-register-ready #customer_register_form input[name=captcha0]{display:block;width:138px!important;min-width:138px!important;height:46px;margin:0!important;padding:0 10px;border:1px solid #d99a9f!important;border-radius:9px;background:#fff;color:var(--tr-ink);font-size:18px;text-align:center;letter-spacing:.15em;outline:none}
         body.taf-register-ready #customer_register_form input[name=captcha0]:focus{border-color:#df8d92!important;box-shadow:0 0 0 4px rgba(217,19,25,.07)}
         body.taf-register-ready #customer_register_form .clearcss{display:none}
         body.taf-register-ready #customer_register_form button[name=ok]{display:block;width:100%;height:50px;margin:0;border:1px solid var(--tr-red)!important;border-radius:11px;background:var(--tr-red)!important;color:#fff!important;font-size:14px;font-weight:700;letter-spacing:.02em;box-shadow:0 9px 18px rgba(217,19,25,.17);transition:background .2s,transform .2s,box-shadow .2s}
@@ -139,9 +141,9 @@
         body.taf-register-ready .taf-existing-account{margin-top:27px;border-top:1px solid #ece7e7;padding-top:22px}
         body.taf-register-ready .taf-existing-account summary{display:flex;align-items:center;justify-content:space-between;gap:12px;list-style:none;cursor:pointer;color:#505a5b;font-size:13px;font-weight:500}
         body.taf-register-ready .taf-existing-account summary::-webkit-details-marker{display:none}
-        body.taf-register-ready .taf-existing-account summary strong{color:var(--tr-red);font-weight:700}
-        body.taf-register-ready .taf-existing-account summary:after{content:'+';display:grid;place-items:center;flex:none;width:25px;height:25px;border-radius:50%;background:#fff1f2;color:var(--tr-red);font-size:18px;line-height:1}
-        body.taf-register-ready .taf-existing-account[open] summary:after{content:'−'}
+        body.taf-register-ready .taf-existing-account summary strong{display:inline-flex;align-items:center;justify-content:center;flex:none;min-height:42px;padding:0 17px;border:1px solid var(--tr-red);border-radius:9px;background:var(--tr-red);color:#fff!important;font-size:12px;font-weight:700;box-shadow:0 7px 15px rgba(217,19,25,.15);transition:background .2s,transform .2s}
+        body.taf-register-ready .taf-existing-account summary:hover strong{background:#b90e15;transform:translateY(-1px)}
+        body.taf-register-ready .taf-existing-account summary:after{display:none!important;content:none!important}
         body.taf-register-ready .taf-existing-account .panel{margin-top:20px;padding:20px;border:1px solid #eee3e4;border-radius:12px;background:#fffafa}
         body.taf-register-ready .taf-existing-account #customerloginformpage{padding:0!important}
         body.taf-register-ready .taf-existing-account #customerloginformpage .row{margin:0}
@@ -179,6 +181,8 @@
           body.taf-register-ready .taf-register-heading h1{font-size:29px}
           body.taf-register-ready #customer_register_form>.row{grid-template-columns:1fr;gap:15px}
           body.taf-register-ready #customer_register_form>.row>.col-md-12,body.taf-register-ready #customer_register_form>.row>small{grid-column:auto}
+          body.taf-register-ready #customer_register_form .p_captcha{grid-template-columns:1fr auto}
+          body.taf-register-ready #customer_register_form input[name=captcha0]{width:110px!important;min-width:110px!important}
         }
         @media(prefers-reduced-motion:reduce){body.taf-register-ready *,body.taf-register-ready *:before,body.taf-register-ready *:after{transition:none!important;animation:none!important}}
       `;
@@ -273,7 +277,17 @@
       title.textContent = 'Güvenlik doğrulaması';
       captcha.prepend(title);
       const captchaInput = captcha.querySelector('input[name="captcha0"]');
-      if (captchaInput) captchaInput.setAttribute('aria-label', 'Resimdeki üç karakter');
+      if (captchaInput) {
+        captchaInput.id = 'taf-captcha-code';
+        captchaInput.placeholder = 'Kodu yazın';
+        captchaInput.setAttribute('aria-label', 'Resimdeki güvenlik kodunu girin');
+        captchaInput.setAttribute('autocomplete', 'off');
+        const caption = document.createElement('label');
+        caption.className = 'taf-captcha-label';
+        caption.htmlFor = captchaInput.id;
+        caption.textContent = 'Güvenlik kodunu girin';
+        captchaInput.parentElement?.prepend(caption);
+      }
     }
 
     body.classList.add('taf-register-ready');
