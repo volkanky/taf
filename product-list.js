@@ -1,0 +1,91 @@
+/* TAF Ecza category product grid. Preserves ProjeSoft's sort, cart and AJAX flow. */
+(function () {
+  'use strict';
+
+  const CSS = `
+    body.taf-product-list{--taf-red:#cf161e;--taf-ink:#273033;--taf-muted:#687275;--taf-line:#eee3e4;background:#faf8f8;color:var(--taf-ink);font-family:'Jost','Avenir Next',sans-serif}
+    body.taf-product-list main{padding-bottom:32px}
+    body.taf-product-list .taf-list-heading{padding-top:24px!important;padding-bottom:20px!important;margin-top:0!important}
+    body.taf-product-list .taf-list-heading-card{background:linear-gradient(110deg,#fff7f8,#fff)!important;border:1px solid #f0e3e5!important;border-radius:18px!important;box-shadow:none!important;padding:22px 26px!important}
+    body.taf-product-list .taf-list-heading-card .text-2xl{font-size:clamp(24px,2.4vw,34px)!important;color:var(--taf-ink)!important;font-weight:700!important;letter-spacing:-.035em;line-height:1.15}
+    body.taf-product-list .taf-list-heading-card nav ol{justify-content:flex-start!important;flex-wrap:wrap;gap:3px 0}
+    body.taf-product-list .taf-list-heading-card nav a,body.taf-product-list .taf-list-heading-card nav li{color:#697477!important;font-size:12px;text-decoration:none}
+    body.taf-product-list .taf-list-heading-card nav a:hover{color:var(--taf-red)!important}
+    body.taf-product-list .listingGridStyleBtns{display:none!important}
+    body.taf-product-list #listorderselect{min-width:205px;height:44px!important;margin:0!important;padding:0 36px 0 14px!important;border:1px solid #e9dcde!important;border-radius:11px!important;background-color:#fff!important;color:#394447!important;font-size:13px!important;font-weight:600;box-shadow:none!important;cursor:pointer}
+    body.taf-product-list #listorderselect:focus{border-color:var(--taf-red)!important;outline:3px solid rgba(207,22,30,.11)!important}
+    body.taf-product-list .productListParent{padding-top:0!important;align-items:flex-start}
+    body.taf-product-list #mainProductListContainer{min-width:0}
+    body.taf-product-list #mainProductListContainer .taf-product-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));align-items:stretch!important;gap:16px;overflow:visible!important;background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid > .productBoxList{display:flex!important;flex-direction:column!important;align-items:stretch!important;width:100%!important;min-width:0;margin:0!important;padding:0!important;border:1px solid var(--taf-line)!important;border-radius:17px!important;background:#fff!important;overflow:hidden;box-shadow:0 10px 28px rgba(55,27,31,.045);transition:transform .22s,box-shadow .22s,border-color .22s}
+    body.taf-product-list #mainProductListContainer .taf-product-grid > .productBoxList:hover{transform:translateY(-3px);border-color:#ebc9cd!important;box-shadow:0 18px 38px rgba(65,25,31,.1)}
+    body.taf-product-list #mainProductListContainer .taf-product-grid > .productBoxList > .product-image{display:flex!important;flex:1 1 auto!important;flex-direction:column!important;align-items:stretch!important;min-width:0;position:relative}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .product-image > img.block{display:block!important;width:100%!important;height:205px!important;max-height:none!important;object-fit:contain!important;padding:18px!important;background:radial-gradient(circle at center,#fff 40%,#fff9f9 100%);transition:transform .3s}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productBoxList:hover .product-image > img.block{transform:scale(1.035)}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice{display:flex!important;flex:1 1 auto;flex-direction:column!important;align-items:stretch!important;gap:6px!important;grid-template-columns:none!important;text-align:left!important;background:#fff!important;border-radius:0!important;padding:10px 16px 6px!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice h3{min-height:44px;margin:0;color:var(--taf-ink)!important;font-size:14px!important;line-height:1.42!important;font-weight:650!important;letter-spacing:-.01em;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice h3 a{color:inherit!important;text-decoration:none}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice h3 a:hover{color:var(--taf-red)!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .stokDurumu{font-size:11px!important;color:#4b9360!important;font-weight:600;line-height:1.3}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice ul{display:flex;flex-direction:column;gap:2px;margin-top:auto;padding-top:8px}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice ul li{font-family:inherit!important;text-align:left!important;line-height:1.25}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice ul li.line-through{color:#9ba3a5!important;font-size:12px!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice ul li:last-child{color:var(--taf-red)!important;font-size:21px!important;font-weight:700!important;letter-spacing:-.025em}
+    body.taf-product-list #mainProductListContainer .taf-product-grid > .productBoxList > div:last-child{margin-top:auto;padding:8px 16px 16px}
+    body.taf-product-list #mainProductListContainer .taf-product-grid [id^="addbasketbuttonquantity"]{display:flex!important;flex-wrap:nowrap!important;align-items:stretch!important;gap:8px!important;width:100%;margin:0!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid [id^="addbasketbuttonquantity"] > div:last-child{flex:1;min-width:0}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .addbasketbuttonquantity.quantity-input{width:93px;min-width:93px;min-height:41px;flex-wrap:nowrap!important;justify-content:space-between;border:1px solid #e8dddf!important;border-radius:9px!important;background:#fff}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .addbasketbuttonquantity.quantity-input button{min-width:26px;padding:0!important;background:#fff!important;color:#344043;font-size:18px}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .addbasketbuttonquantity.quantity-input input{width:24px!important;min-width:0!important;margin:0!important;padding:0!important;border:0!important;background:#fff!important;border-radius:0!important;color:#263033!important;font-size:13px!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .addbasketbutton,body.taf-product-list #mainProductListContainer .taf-product-grid .noaddbasketbutton{display:flex!important;width:100%;min-height:41px;padding:8px 10px!important;gap:5px!important;border-radius:9px!important;background:var(--taf-red)!important;color:#fff!important;font-size:11px!important;font-weight:700!important;letter-spacing:.015em;text-align:center;box-shadow:none!important;text-decoration:none;transition:background .2s}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .addbasketbutton:hover{background:#a91118!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .noaddbasketbutton{background:#5e696c!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .outOfStock{z-index:2;top:12px!important;left:12px!important;right:auto!important;bottom:auto!important;width:auto!important;margin:0!important;background:#fff!important;color:#656f71!important;border:1px solid #e7e5e5;border-radius:999px;padding:4px 9px;font-size:10px;font-weight:700}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .outOfStock span{position:static!important;display:block!important;width:auto!important;line-height:1.25!important;background:transparent!important;color:#656f71!important;font-size:10px!important;text-transform:none!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid .taf-out-of-stock .stokDurumu,body.taf-product-list #mainProductListContainer .taf-product-grid .taf-out-of-stock .productNameAndPrice ul{display:none!important}
+    body.taf-product-list #mainProductListContainer .taf-product-grid > .loader,body.taf-product-list #mainProductListContainer .taf-product-grid > .containerEmptyListBody{grid-column:1/-1}
+    body.taf-product-list #mainProductListContainer .taf-product-grid > .hidden{display:none!important}
+    @media(max-width:1150px){body.taf-product-list #mainProductListContainer .taf-product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:1024px){body.taf-product-list #mainProductListContainer{width:100%!important}body.taf-product-list .productListParent > div{margin-left:0!important;margin-right:0!important}}
+    @media(max-width:640px){body.taf-product-list .taf-list-heading{padding-top:12px!important}body.taf-product-list .taf-list-heading-card{padding:17px!important}body.taf-product-list .taf-list-heading-card .text-2xl{text-align:left!important}body.taf-product-list .taf-list-heading-card > div{gap:12px;align-items:flex-start}body.taf-product-list #listorderselect{width:100%;min-width:0}body.taf-product-list #mainProductListContainer .taf-product-grid{gap:10px}body.taf-product-list #mainProductListContainer .taf-product-grid .product-image > img.block{height:150px!important;padding:10px!important}body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice{padding:8px 10px 4px!important}body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice h3{font-size:12px!important;min-height:50px}body.taf-product-list #mainProductListContainer .taf-product-grid .productNameAndPrice ul li:last-child{font-size:17px!important}body.taf-product-list #mainProductListContainer .taf-product-grid > .productBoxList > div:last-child{padding:7px 10px 10px}body.taf-product-list #mainProductListContainer .taf-product-grid [id^="addbasketbuttonquantity"]{flex-direction:column!important}body.taf-product-list #mainProductListContainer .taf-product-grid .addbasketbuttonquantity.quantity-input{width:100%;min-width:0}body.taf-product-list #mainProductListContainer .taf-product-grid .addbasketbutton,body.taf-product-list #mainProductListContainer .taf-product-grid .noaddbasketbutton{font-size:10px!important}}
+    @media(max-width:360px){body.taf-product-list #mainProductListContainer .taf-product-grid{grid-template-columns:1fr}}
+    @media(prefers-reduced-motion:reduce){body.taf-product-list #mainProductListContainer .taf-product-grid .productBoxList,body.taf-product-list #mainProductListContainer .taf-product-grid .product-image > img.block{transition:none!important}}
+  `;
+
+  function init() {
+    const parent = document.querySelector('main .productListParent');
+    const list = parent?.querySelector('#mainProductListContainer');
+    const grid = list?.querySelector('.containerBody');
+    if (!parent || !list || !grid || !grid.querySelector('.productBoxList') || document.body.classList.contains('taf-product-list')) return;
+
+    const style = document.createElement('style');
+    style.id = 'taf-product-list-style';
+    style.textContent = CSS;
+    document.head.appendChild(style);
+    document.body.classList.add('taf-product-list');
+    grid.classList.add('taf-product-grid');
+    const heading = parent.previousElementSibling;
+    heading?.classList.add('taf-list-heading');
+    heading?.querySelector('.bg-white.rounded-xl')?.classList.add('taf-list-heading-card');
+    document.getElementById('listorderselect')?.setAttribute('aria-label', 'Ürünleri sırala');
+
+    function enhanceCards() {
+      grid.querySelectorAll('.productBoxList:not(.taf-product-card-ready)').forEach(card => {
+        card.classList.add('taf-product-card-ready');
+        const name = card.querySelector('.productNameAndPrice h3 a')?.textContent.trim() || 'Ürün';
+        const image = card.querySelector('.product-image > img');
+        if (image && !image.alt) image.alt = name;
+        if (card.querySelector('.outOfStock')) {
+          card.classList.add('taf-out-of-stock');
+          const label = card.querySelector('.noaddbasketbutton span');
+          if (label) label.textContent = 'Stok bildirimi al';
+        }
+      });
+    }
+    enhanceCards();
+    new MutationObserver(enhanceCards).observe(grid, { childList: true, subtree: true });
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init, { once: true });
+  else init();
+})();
