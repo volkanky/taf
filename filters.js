@@ -27,6 +27,8 @@
     body.taf-filters-ready .taf-filter-panel a.show-more{color:var(--taf-red)!important;font-size:12px;font-weight:700;text-decoration:none!important;padding:10px 3px 2px!important}
     body.taf-filters-ready .taf-filter-panel #pricefilterhtml{display:block}
     body.taf-filters-ready .taf-filter-panel #pricefilterhtml li{list-style:none;margin:0!important}
+    body.taf-filters-ready .filtreWrap .taf-filter-panel #pricefilterhtml,body.taf-filters-ready .filtreWrap .taf-filter-panel #pricefilterhtml li,body.taf-filters-ready .filtreWrap .taf-filter-panel #pricefilterhtml a.pricefilteroptionclick{color:#586467!important}
+    body.taf-filters-ready .filtreWrap .taf-filter-panel #pricefilterhtml a.pricefilteroptionclick.clickedfilter,body.taf-filters-ready .filtreWrap .taf-filter-panel #pricefilterhtml a.pricefilteroptionclick:hover{color:var(--taf-red)!important}
     body.taf-filters-ready .filtreleBtn a{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 16px!important;border:1px solid #e8d7d9!important;border-radius:11px;background:#fff8f9!important;color:var(--taf-red);font-weight:700;font-size:13px;cursor:pointer}
     body.taf-filters-ready .filtreleBtn a:before{content:'☷';font-size:17px;line-height:1}
     body.taf-filters-ready .taf-filter-backdrop{display:none}
