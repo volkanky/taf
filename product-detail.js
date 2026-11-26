@@ -19,9 +19,8 @@
     body.taf-product-detail .taf-product-gallery,body.taf-product-detail .taf-product-info{width:auto!important;min-width:0;padding:0!important}
     body.taf-product-detail .taf-product-gallery{position:relative}
     body.taf-product-detail .taf-product-gallery > .flex-1{width:min(100%,470px);aspect-ratio:4/5;margin-inline:auto;background:radial-gradient(circle at 50% 36%,#fff 0,#fff9f9 53%,#fbedef 100%);border:1px solid #f3e5e6;border-radius:22px;overflow:hidden;display:grid;place-items:center}
-    body.taf-product-detail .taf-product-gallery figure.with-zoom{width:100%;height:100%;min-height:0;margin:0!important;display:grid;place-items:center;background-repeat:no-repeat;background-size:180%!important;background-position:center;cursor:zoom-in}
-    body.taf-product-detail .taf-product-gallery figure.with-zoom:hover img{opacity:.08}
-    body.taf-product-detail .taf-product-gallery figure.with-zoom img{display:block;width:100%!important;height:100%!important;max-height:none!important;object-fit:contain;object-position:center;padding:clamp(18px,2.5vw,34px);mix-blend-mode:multiply;transition:opacity .25s ease,transform .3s ease}
+    body.taf-product-detail .taf-product-gallery figure.with-zoom{width:100%;height:100%;min-height:0;margin:0!important;display:grid;place-items:center;background-image:none!important;cursor:default}
+    body.taf-product-detail .taf-product-gallery figure.with-zoom img{display:block;width:100%!important;height:100%!important;max-height:none!important;object-fit:contain;object-position:center;padding:clamp(18px,2.5vw,34px);background-image:none!important;opacity:1!important;mix-blend-mode:normal;transition:transform .3s ease}
     body.taf-product-detail .taf-product-gallery figure.with-zoom:not(:hover) img{transform:scale(1)}
     body.taf-product-detail .taf-product-gallery .favorite{top:16px!important;right:16px!important;z-index:2;padding:11px!important;border:1px solid #f1e1e3;border-radius:50%!important;box-shadow:0 8px 24px rgba(73,38,43,.08)}
     body.taf-product-detail .taf-product-gallery .favorite svg{width:20px;height:20px}
@@ -152,6 +151,7 @@
 
     document.body.classList.add('taf-product-detail');
     gallery.classList.add('taf-product-gallery');
+    figure.querySelector('img.with-zoom')?.classList.remove('with-zoom');
     columns.classList.add('taf-product-columns');
     info.classList.add('taf-product-info');
     card.classList.add('taf-product-card');
