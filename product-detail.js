@@ -212,7 +212,7 @@
 
     const basketModal = document.querySelector('.basket-modal');
     const basketDialog = basketModal?.querySelector(':scope > div > div.relative');
-    if (basketModal && basketDialog) {
+    if (basketModal && basketDialog && !basketModal.classList.contains('taf-cart-modal')) {
       basketModal.classList.add('taf-product-basket-modal');
       basketDialog.setAttribute('role', 'dialog');
       basketDialog.setAttribute('aria-modal', 'true');
